@@ -1,46 +1,31 @@
 <section>
   <h2 class="title">Convert your money:</h2>
-  <ul class="converter">
-    <li class="converter-item">
-      <form autocomplete="off" data-form-eur>
-        <label for="currency">from:</label>
-        <select name="currency" id="currency" data-from>
-          <option value="UAH">UAH</option>
-          <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
-        </select>
-        <label for="EUR"></label>
-        <input type="number" name="EUR" min="0" required data-input-from />
-        <label for="currency">into:</label>
-        <select name="currency" id="currency" data-into>
-          <option value="UAH">UAH</option>
-          <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
-        </select>
-        <label for="result"></label>
-        <input type="number" name="result" data-input-into />
-      </form>
-    </li>
-    <li class="converter-item">
-      <form autocomplete="off" data-form-usd>
-        <label for="currency">from:</label>
-        <select name="currency" id="currency" data-from>
-          <option value="UAH">UAH</option>
-          <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
-        </select>
-        <label for="data-from"></label>
-        <input type="number" name="USD" min="0" required data-input-from />
-        <label for="currency">into:</label>
-        <select name="currency" id="currency" data-into>
-          <option value="UAH">UAH</option>
-          <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
-        </select>
-        <label for="result"></label>
-        <input type="number" name="result" data-input-into />
-      </form>
-    </li>
-  </ul>
+  <div class="converter">
+    <form class="converter__item" autocomplete="off" data-form>
+      <label for="currency">from:</label>
+      <select name="currency" id="currency" data-from>
+        <option value="UAH">UAH</option>
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+      </select>
+      <label for="EUR"></label>
+      <input
+        type="number"
+        name="from"
+        min="0"
+        placeholder="I have"
+        required
+        data-input-from
+      />
+      <label for="currency">into:</label>
+      <select name="currency" id="currency" data-into>
+        <option value="UAH">UAH</option>
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+      </select>
+      <label for="resdivt"></label>
+      <input type="number" name="into" placeholder="I get" data-input-into />
+    </form>
+  </div>
   <button type="button" class="button">Update rate</button>
 </section>
