@@ -46,32 +46,53 @@ const updateValueUSD = () => {
     .catch(e => console.log(e));
 };
 const convert = event => {
-  const intoCurrency = event.currentTarget.querySelector('[data-into]');
   const fromCurrency = event.currentTarget.querySelector('[data-from]');
-  const resultInput = event.currentTarget.querySelector('[data-result]');
+  const intoCurrency = event.currentTarget.querySelector('[data-into]');
+  const inputFrom = event.currentTarget.querySelector('[data-input-from]');
+  const inputInto = event.currentTarget.querySelector('[data-input-into]');
 
-  let currentCurrency = valueEUR;
-  let oppositeCurrency = valueEUR;
+  let currentCurrency = fromCurrency;
+  let oppositeCurrency = fromCurrency;
+  let currentInput = inputFrom;
+  let oppositeInput = inputFrom;
 
   let result;
 
-  fromCurrency.name === 'EUR'
-    ? (oppositeCurrency = valueUSD)
-    : (currentCurrency = valueUSD);
+  event.target === inputFrom
+    ? (oppositeInput = inputInto)
+    : (currentInput = inputInto);
 
-  switch (intoCurrency.value) {
-    case fromCurrency.name:
-      result = fromCurrency.value * 1;
-      break;
-    case 'UAH':
-      result = fromCurrency.value * currentCurrency.textContent;
-      break;
-    default:
-      result =
-        (fromCurrency.value * currentCurrency.textContent) /
-        oppositeCurrency.textContent;
+  event.target === inputFrom
+    ? (oppositeCurrency = intoCurrency)
+    : (currentCurrency = intoCurrency);
+
+  if (currentCurrency.value === oppositeCurrency.value) {
+    result = currentInput.value * 1;
   }
-  resultInput.value = Math.round(result * 100) / 100;
+  if (currentCurrency.value === 'EUR' && oppositeCurrency.value === 'USD') {
+    result =
+      (currentInput.value * Number(valueEUR.textContent)) /
+      Number(valueUSD.textContent);
+  }
+  if (currentCurrency.value === 'EUR' && oppositeCurrency.value === 'UAH') {
+    result = currentInput.value * Number(valueEUR.textContent);
+  }
+  if (currentCurrency.value === 'USD' && oppositeCurrency.value === 'EUR') {
+    result =
+      (currentInput.value * Number(valueUSD.textContent)) /
+      Number(valueEUR.textContent);
+  }
+  if (currentCurrency.value === 'USD' && oppositeCurrency.value === 'UAH') {
+    result = currentInput.value * Number(valueUSD.textContent);
+  }
+  if (currentCurrency.value === 'UAH' && oppositeCurrency.value === 'EUR') {
+    result = currentInput.value / Number(valueEUR.textContent);
+  }
+  if (currentCurrency.value === 'UAH' && oppositeCurrency.value === 'USD') {
+    result = currentInput.value / Number(valueUSD.textContent);
+  }
+
+  oppositeInput.value = Math.round(result * 100) / 100;
 };
 
 updateValueEUR();

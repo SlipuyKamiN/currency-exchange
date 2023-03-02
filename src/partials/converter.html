@@ -3,8 +3,14 @@
   <ul class="converter">
     <li class="converter-item">
       <form autocomplete="off" data-form-eur>
-        <label for="EUR">from EUR:</label>
-        <input type="number" name="EUR" data-from min="0" required />
+        <label for="currency">from:</label>
+        <select name="currency" id="currency" data-from>
+          <option value="UAH">UAH</option>
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+        </select>
+        <label for="EUR"></label>
+        <input type="number" name="EUR" min="0" required data-input-from />
         <label for="currency">into:</label>
         <select name="currency" id="currency" data-into>
           <option value="UAH">UAH</option>
@@ -12,13 +18,19 @@
           <option value="USD">USD</option>
         </select>
         <label for="result"></label>
-        <input type="number" name="result" disabled="true" data-result />
+        <input type="number" name="result" data-input-into />
       </form>
     </li>
     <li class="converter-item">
       <form autocomplete="off" data-form-usd>
-        <label for="USD">from USD:</label>
-        <input type="number" name="USD" data-from min="0" required />
+        <label for="currency">from:</label>
+        <select name="currency" id="currency" data-from>
+          <option value="UAH">UAH</option>
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+        </select>
+        <label for="data-from"></label>
+        <input type="number" name="USD" min="0" required data-input-from />
         <label for="currency">into:</label>
         <select name="currency" id="currency" data-into>
           <option value="UAH">UAH</option>
@@ -26,7 +38,7 @@
           <option value="USD">USD</option>
         </select>
         <label for="result"></label>
-        <input type="number" name="result" disabled="true" data-result />
+        <input type="number" name="result" data-input-into />
       </form>
     </li>
   </ul>
