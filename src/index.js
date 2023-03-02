@@ -79,7 +79,7 @@ const convertCurrencies = (from, into, input, output) => {
   output.value = Math.round(result * 100) / 100;
 };
 
-const convert = event => {
+const handleFormChange = event => {
   let currentCurrency = fromCurrency;
   let oppositeCurrency = fromCurrency;
   let currentInput = inputFrom;
@@ -98,6 +98,7 @@ const convert = event => {
     convertCurrencies(fromCurrency, intoCurrency, inputFrom, oppositeInput);
     return;
   }
+
   if (event.target === intoCurrency) {
     oppositeInput = inputInto;
     convertCurrencies(fromCurrency, intoCurrency, inputFrom, oppositeInput);
@@ -115,7 +116,7 @@ const convert = event => {
 updateValueEUR();
 updateValueUSD();
 
-form.addEventListener('input', convert);
+form.addEventListener('input', handleFormChange);
 updateBtn.addEventListener('click', () => {
   updateValueEUR();
   updateValueUSD();

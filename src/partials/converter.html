@@ -1,31 +1,42 @@
 <section>
-  <h2 class="title">Convert your money:</h2>
-  <div class="converter">
-    <form class="converter__item" autocomplete="off" data-form>
-      <label for="currency">from:</label>
-      <select name="currency" id="currency" data-from>
-        <option value="UAH">UAH</option>
-        <option value="EUR">EUR</option>
-        <option value="USD">USD</option>
-      </select>
-      <label for="EUR"></label>
-      <input
-        type="number"
-        name="from"
-        min="0"
-        placeholder="I have"
-        required
-        data-input-from
-      />
-      <label for="currency">into:</label>
-      <select name="currency" id="currency" data-into>
-        <option value="UAH">UAH</option>
-        <option value="EUR">EUR</option>
-        <option value="USD">USD</option>
-      </select>
-      <label for="resdivt"></label>
-      <input type="number" name="into" placeholder="I get" data-input-into />
-    </form>
+  <div class="container">
+    <h2 class="title">Convert your money:</h2>
+    <div class="converter">
+      <form class="converter__item" autocomplete="off" data-form>
+        <div class="converter__from">
+          <label for="currency">from:</label>
+          <select name="currency" id="currency" data-from>
+            <option value="UAH">UAH</option>
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+          </select>
+          <label for="EUR"></label>
+          <input
+            type="number"
+            name="from"
+            min="0"
+            placeholder="I have"
+            required
+            data-input-from
+          />
+        </div>
+        <div class="converter__into">
+          <label for="currency">into:</label>
+          <select name="currency" id="currency" data-into>
+            <option value="UAH">UAH</option>
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+          </select>
+          <label for="resdivt"></label>
+          <input
+            type="number"
+            name="into"
+            placeholder="I get"
+            data-input-into
+          />
+        </div>
+      </form>
+    </div>
+    <button type="button" class="button">Update rate</button>
   </div>
-  <button type="button" class="button">Update rate</button>
 </section>
