@@ -1,0 +1,34 @@
+<section>
+  <h2 class="title">Convert your money:</h2>
+  <ul class="converter">
+    <li class="converter-item">
+      <form autocomplete="off" data-form-eur>
+        <label for="EUR">from EUR:</label>
+        <input type="number" name="EUR" data-from min="0" required />
+        <label for="currency">into:</label>
+        <select name="currency" id="currency" data-into>
+          <option value="UAH">UAH</option>
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+        </select>
+        <label for="result"></label>
+        <input type="number" name="result" disabled="true" data-result />
+      </form>
+    </li>
+    <li class="converter-item">
+      <form autocomplete="off" data-form-usd>
+        <label for="USD">from USD:</label>
+        <input type="number" name="USD" data-from min="0" required />
+        <label for="currency">into:</label>
+        <select name="currency" id="currency" data-into>
+          <option value="UAH">UAH</option>
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+        </select>
+        <label for="result"></label>
+        <input type="number" name="result" disabled="true" data-result />
+      </form>
+    </li>
+  </ul>
+  <button type="button" class="button">Update rate</button>
+</section>
