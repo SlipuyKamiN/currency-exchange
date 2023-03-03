@@ -7,30 +7,14 @@ const intoCurrency = document.querySelector('[data-into]');
 const inputFrom = document.querySelector('[data-input-from]');
 const inputInto = document.querySelector('[data-input-into]');
 
-const updateValueEUR = () => {
-  valueEUR.textContent = 99.99;
-  fetch(
-    `https://api.fastforex.io/fetch-multi?from=EUR&to=UAH&api_key=7286b54f11-1f02cf7f73-rqv3lj`
-  )
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
-    })
-    .then(currencies => {
-      return currencies;
-    })
-    .then(currencies => {
-      valueEUR.textContent = Math.round(currencies.results.UAH * 100) / 100;
-    })
-    .catch(e => console.log(e));
-};
-const updateValueUSD = () => {
-  valueUSD.textContent = 99.99;
+const PRIMARY_CURRENCY = 'UAH';
+
+const updateRate = currency => {
+  let curr = eval(`value${currency}`);
+  curr.textContent = 99.99;
 
   fetch(
-    `https://api.fastforex.io/fetch-multi?from=USD&to=UAH&api_key=7286b54f11-1f02cf7f73-rqv3lj`
+    `https://api.fastforex.io/fetch-multi?from=${currency}&to=UAH&api_key=7286b54f11-1f02cf7f73-rqv3lj`
   )
     .then(response => {
       if (!response.ok) {
@@ -43,7 +27,7 @@ const updateValueUSD = () => {
       return currencies;
     })
     .then(currencies => {
-      valueUSD.textContent = Math.round(currencies.results.UAH * 100) / 100;
+      curr.textContent = Math.round(currencies.results.UAH * 100) / 100;
     })
     .catch(e => console.log(e));
 };
@@ -52,54 +36,33 @@ const convertCurrencies = (from, into, input, output) => {
 
   if (from.value === into.value) {
     result = input.value * 1;
-  }
-  if (from.value === 'EUR' && into.value === 'USD') {
+  } else if (from.value === PRIMARY_CURRENCY) {
+    result = input.value / Number(eval(`value${into.value}.textContent`));
+  } else if (into.value === PRIMARY_CURRENCY) {
+    result = input.value * Number(eval(`value${from.value}.textContent`));
+  } else {
     result =
-      (input.value * Number(valueEUR.textContent)) /
-      Number(valueUSD.textContent);
-  }
-  if (from.value === 'EUR' && into.value === 'UAH') {
-    result = input.value * Number(valueEUR.textContent);
-  }
-  if (from.value === 'USD' && into.value === 'EUR') {
-    result =
-      (input.value * Number(valueUSD.textContent)) /
-      Number(valueEUR.textContent);
-  }
-  if (from.value === 'USD' && into.value === 'UAH') {
-    result = input.value * Number(valueUSD.textContent);
-  }
-  if (from.value === 'UAH' && into.value === 'EUR') {
-    result = input.value / Number(valueEUR.textContent);
-  }
-  if (from.value === 'UAH' && into.value === 'USD') {
-    result = input.value / Number(valueUSD.textContent);
+      (input.value * Number(eval(`value${from.value}.textContent`))) /
+      Number(eval(`value${into.value}.textContent`));
   }
 
   output.value = Math.round(result * 100) / 100;
 };
-
 const handleFormChange = event => {
   let currentCurrency = fromCurrency;
   let oppositeCurrency = fromCurrency;
   let currentInput = inputFrom;
   let oppositeInput = inputFrom;
 
-  event.target === inputFrom
-    ? (oppositeInput = inputInto)
-    : (currentInput = inputInto);
-
-  event.target === inputFrom
-    ? (oppositeCurrency = intoCurrency)
-    : (currentCurrency = intoCurrency);
-
-  if (event.target === fromCurrency) {
+  if (event.target === inputFrom) {
     oppositeInput = inputInto;
-    convertCurrencies(fromCurrency, intoCurrency, inputFrom, oppositeInput);
-    return;
+    oppositeCurrency = intoCurrency;
+  } else {
+    currentInput = inputInto;
+    currentCurrency = intoCurrency;
   }
 
-  if (event.target === intoCurrency) {
+  if (event.target === fromCurrency || event.target === intoCurrency) {
     oppositeInput = inputInto;
     convertCurrencies(fromCurrency, intoCurrency, inputFrom, oppositeInput);
     return;
@@ -113,11 +76,11 @@ const handleFormChange = event => {
   );
 };
 
-updateValueEUR();
-updateValueUSD();
+updateRate('EUR');
+updateRate('USD');
 
 form.addEventListener('input', handleFormChange);
 updateBtn.addEventListener('click', () => {
-  updateValueEUR();
-  updateValueUSD();
+  updateRate('EUR');
+  updateRate('USD');
 });
